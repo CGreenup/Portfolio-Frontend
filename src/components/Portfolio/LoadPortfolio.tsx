@@ -8,7 +8,7 @@ import { setFullPortfolio } from '../../features/FullPortfolioSlice';
 import { useCookies } from "react-cookie";
 import ViewPortfolio from "../ViewPortfolio/ViewPortfolio";
 
-const LoadPortfolio:React.FC<null> = () => {
+const LoadViewPortfolio:React.FC<null> = () => {
 
     const [cookie] = useCookies();
     const [portfolioLoaded, setPortfolioLoaded] = useState(false);
@@ -48,4 +48,4 @@ const LoadPortfolio:React.FC<null> = () => {
     );
 }
 
-export default LoadPortfolio;
+export default LoadViewPortfolio;
