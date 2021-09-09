@@ -9,8 +9,6 @@ import StackedBarChart, { data } from "./StackedBarChart";
 const AdminChart: React.FC<unknown> = () => {
 
     const [adminData, setList] = useState(Array<data>())
-    const [, setCookie] = useCookies();
-    const [gettingAdminData, setGettingAdminData] = useState(false);
     const [displayData, setDisplay] = useState(false);
 
     //Get all of the relevant admin data from the backend API
@@ -33,11 +31,8 @@ const AdminChart: React.FC<unknown> = () => {
     }
 
     useEffect(() => {
-        if (!gettingAdminData && !displayData) {
-            setGettingAdminData(true);
-            getAdminData();
-        }
-    })
+        getAdminData();
+    }, [])
 
     function returnData() {
         return { adminData }

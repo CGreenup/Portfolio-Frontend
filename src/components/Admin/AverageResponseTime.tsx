@@ -10,7 +10,7 @@ const AverageResponseTime:React.FC<Props> = (props) => {
         <div>
             <p>Average response time for the portfolios:</p>
             <p>{
-            (props.responseTime != null)?
+            (props.responseTime)?
                 props.responseTime:
                 "Loading"
             }</p>
