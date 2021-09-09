@@ -1,5 +1,4 @@
 import axios from "axios";
-import { url } from "inspector";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -7,6 +6,7 @@ import { useAppDispatch } from '../../store/Hooks';
 import { setFullPortfolio } from '../../features/FullPortfolioSlice';
 import { useCookies } from "react-cookie";
 import ViewPortfolio from "../ViewPortfolio/ViewPortfolio";
+import { url } from "../../api/api";
 
 const LoadViewPortfolio:React.FC<null> = () => {
 
