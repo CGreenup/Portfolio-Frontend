@@ -1,26 +1,38 @@
 import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { responseTimeUrl } from "../../api/api";
 
 import AdminChart from "../Admin/AdminChart";
+import AverageResponseTime from "./AverageResponseTime";
 
-const adminReportPage = (props: any) => {
+const AdminReportPage:React.FC<any> = (props) => {
 
+    const [averageResponseTime, setResponseTime] = useState("");
     const reportPage = (): void => {
-        let pahtname = "./admin";
-        window.location.pathname = pahtname;
-      }
+        let pathname = "./admin";
+        window.location.pathname = pathname;
+    }
 
-return (
-    <div>
+    //refactor this to get all data in one call later
+    useEffect(() => {
+        getData();
+    }, [])
+
+    async function getData() {
+        let response = await axios.get(`${responseTimeUrl}`);
+        setResponseTime(response.data);
+    }
+
+    return (
         <div>
-            Average response time for the portfolios:
+            <AverageResponseTime responseTime = {averageResponseTime}/>      
+            <AdminChart/>
+            <button className="btn btn-primary" onClick={() => reportPage()}> 
+                Go Back
+            </button>
         </div>
-        <AdminChart/>
-        <div> </div>
-        <button className="btn btn-primary" onClick={() => reportPage()}> 
-            Go Back
-             </button>
-    </div>
-)
+    )
 }
-export default adminReportPage;
+export default AdminReportPage;
