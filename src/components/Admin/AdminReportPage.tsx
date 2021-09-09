@@ -7,7 +7,7 @@ import { responseTimeUrl } from "../../api/api";
 import AdminChart from "../Admin/AdminChart";
 import AverageResponseTime from "./AverageResponseTime";
 
-const adminReportPage = (props: any) => {
+const AdminReportPage:React.FC<any> = (props) => {
 
     const [averageResponseTime, setResponseTime] = useState("");
     const reportPage = (): void => {
@@ -35,4 +35,4 @@ const adminReportPage = (props: any) => {
         </div>
     )
 }
-export default adminReportPage;
+export default AdminReportPage;
