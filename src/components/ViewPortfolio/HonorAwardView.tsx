@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import { useCookies } from 'react-cookie';
 import '../../css/ViewPortfolio.css'
 import {url} from "../../api/api";
+import { useAppSelector } from '../../store/Hooks';
 
 interface Honor {
     id: string;
@@ -16,11 +17,10 @@ interface Honor {
 const HonorAwardView = () => {
     const [honorList, setHonor] = useState<Honor[]>();
     const [cookie] = useCookies();
+    const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
     useEffect(() => {
-        axios.get<Honor[]>(url + `/honor/portfolio/all/${cookie['portfolio'].id}`).then(response => {
-            setHonor(response.data);
-        })
+        setHonor(portfolioFull.fullPortfolio.honors);
     }, [null]);
 
     const renderHonors = ((honorList: Honor[]) => {

@@ -5,17 +5,15 @@ import { useCookies } from "react-cookie";
 import "../../css/ViewPortfolio.css";
 import Matrix from "../../interfaces/Matrix";
 import { matrixUrl } from "../../api/api";
+import { useAppSelector } from "../../store/Hooks";
 
 const SkillMatrixView = () => {
   const [matrices, setMatrices] = useState<Matrix[]>();
   const [cookie] = useCookies();
+  const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
   useEffect(() => {
-    axios
-      .get<Matrix[]>(matrixUrl + `/portfolio/${cookie["portfolio"].id}`)
-      .then((response) => {
-        setMatrices(response.data);
-      });
+    setMatrices(portfolioFull.fullPortfolio.matrices);
   }, [cookie]);
 
   const renderMatrices = (matList: Matrix[]) => {

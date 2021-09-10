@@ -4,6 +4,7 @@ import '../../css/RevatureAboutMe.css';
 import { Card } from 'react-bootstrap';
 import { useCookies } from 'react-cookie';
 import {url} from "../../api/api";
+import { useAppSelector } from '../../store/Hooks'
 
 interface AboutMe {
     id: number;
@@ -15,12 +16,10 @@ interface AboutMe {
 const AboutMeView = () => {
     const [aboutMe, setAboutMe] = useState<AboutMe>();
     const [cookie] = useCookies();
+    const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
     useEffect(() => {
-        axios.get<AboutMe>(url + `/aboutMe/portfolio/${cookie['portfolio'].id}`).then(response => {
-            setAboutMe(response.data as AboutMe);
-        })
-
+        setAboutMe(portfolioFull.fullPortfolio.aboutMe);
     }, [null]);
 
     const renderAboutMe = (aboutMe: AboutMe) => {

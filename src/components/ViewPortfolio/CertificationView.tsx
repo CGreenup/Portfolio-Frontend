@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import '../../css/ViewPortfolio.css';
 import { useCookies } from 'react-cookie'
 import {url} from "../../api/api";
+import { useAppSelector } from '../../store/Hooks';
 
 interface Certification {
     id: number;
@@ -17,16 +18,15 @@ interface Certification {
 const CertificationView = () => {
     const [certifications, setCertifications] = useState<Certification[]>();
     const [cookie] = useCookies();
+    const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
     useEffect(() => {
-        axios.get<Certification[]>(url + `/certifications/portfolio/all/${cookie['portfolio'].id}`).then(response => {
-            setCertifications(response.data);
-        });
+        setCertifications(portfolioFull.fullPortfolio.certifications)
     }, [null])
 
     const renderCertifications = (certifications: Certification[]) => {
         return certifications.map(data => {
-            let date = data.issuedOn.substring(5, 7) + "/" + data.issuedOn.substring(8) + "/" + data.issuedOn.substring(0, 4);
+            let date = data.issuedOn.toString().substring(5, 7) + "/" + data.issuedOn.toString().substring(8) + "/" + data.issuedOn.toString().substring(0, 4);
             return (
                 <div className="card" data-testid="card">
                     <div className="card-header" id="bottom-border">

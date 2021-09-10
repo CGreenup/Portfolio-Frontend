@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import { useCookies } from 'react-cookie';
 import "../../css/Project.css";
 import {url} from "../../api/api";
+import { useAppSelector } from '../../store/Hooks';
 
 interface Projects {
     id: number;
@@ -18,11 +19,10 @@ interface Projects {
 const ProjectView = () => {
     const [projectList, setProjects] = useState<Projects[]>();
     const [cookie] = useCookies();
+    const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
     useEffect(() => {
-        axios.get<Projects[]>(url + `/projects/portfolio/all/${cookie['portfolio'].id}`).then(response => {
-            setProjects(response.data);
-        })
+        setProjects(portfolioFull.fullPortfolio.projects)
     }, [null]);
 
     const renderProjects = ((projectList: Projects[]) => {

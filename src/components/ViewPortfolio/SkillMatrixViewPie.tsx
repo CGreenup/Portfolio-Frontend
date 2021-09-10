@@ -6,18 +6,16 @@ import "../../css/ViewPortfolio.css";
 import Matrix from "../../interfaces/Matrix";
 import { matrixUrl } from "../../api/api";
 import SkillMatrixPieChart from "../SkillMatrix/SkillMatrixPieChart";
+import { useAppSelector } from "../../store/Hooks";
 
 const SkillMatrixViewPie = () => {
   const [matrices, setMatrices] = useState<Matrix[]>();
   const [cookie] = useCookies();
+  const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
   useEffect(() => {
-    axios
-      .get<Matrix[]>(matrixUrl + `/portfolio/${cookie["portfolio"].id}`)
-      .then((response) => {
-        setMatrices(response.data);
-      });
-  }, [cookie]);
+    setMatrices(portfolioFull.fullPortfolio.matrices)
+  }, []);
 
   const renderMatrices = (matList: Matrix[]) => {
     return matList.map((data: Matrix) => {
