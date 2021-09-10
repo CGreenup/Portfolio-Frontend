@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { useCookies } from 'react-cookie';
 import {url} from "../../api/api";
+import { useAppSelector } from '../../store/Hooks';
 
 interface Education {
     id: number;
@@ -16,11 +17,10 @@ interface Education {
 const EducationView = () => {
     const [educationList, setList] = useState<Education[]>();
     const [cookie] = useCookies();
+    const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
     useEffect(() => {
-        axios.get<Education[]>(url + `/education/portfolio/all/${cookie['portfolio'].id}`).then(response => {
-            setList(response.data);
-        });
+        setList(portfolioFull.fullPortfolio.educations)
     }, [null]);
 
     const renderEducation = (educationList: Education[]) => {

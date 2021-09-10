@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import '../../css/OtherWorkExperience.css'
 import {url} from "../../api/api";
+import { useAppSelector } from '../../store/Hooks';
 
 interface OtherWorkExperience {
     id: number;
@@ -24,11 +25,10 @@ interface OtherWorkExperience {
  * *****/
 const OtherWorkExperienceView = () => {
     const [experienceList,setList] = useState<OtherWorkExperience[]>();
+    const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
     useEffect(() => {
-        axios.get<OtherWorkExperience[]>(url + '/workhistory').then(response => {
-            setList(response.data)
-        })
+        setList(portfolioFull.fullPortfolio.workHistories) 
     }, [null]);
 
     const renderOtherWorkExperience = (experienceList: OtherWorkExperience[]) =>{

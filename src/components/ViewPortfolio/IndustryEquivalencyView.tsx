@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import { useCookies } from 'react-cookie';
 import '../../css/ViewPortfolio.css';
 import {url} from "../../api/api";
+import { useAppSelector } from '../../store/Hooks';
 
 interface Equivalency {
     id: number;
@@ -15,11 +16,10 @@ const IndustryEquivalencyView = () => {
     const [industryList, setList] = useState<Equivalency[]>();
     const [maxValue, setValue] = useState<number>(0);
     const [cookie] = useCookies();
+    const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
     useEffect(() => {
-        axios.get<Equivalency[]>(url + `/equiv/portfolios/all/${cookie['portfolio'].id}`).then(response => {
-            setList(response.data);
-        })
+        setList(portfolioFull.fullPortfolio.equivalencies)
     }, [null]);
 
     useEffect(() => {

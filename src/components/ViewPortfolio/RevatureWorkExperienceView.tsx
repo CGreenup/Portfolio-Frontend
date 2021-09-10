@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import '../../css/ViewPortfolio.css';
 import { useCookies } from 'react-cookie'
+import { useAppSelector } from '../../store/Hooks';
 
 interface WorkExperience {
     id: number;
@@ -29,12 +30,11 @@ type props = {
 const RevatureWorkExperienceView: React.FC<props> = ({ url, title }) => {
     const [experienceList, setList] = useState<WorkExperience[]>();
     const [cookie] = useCookies();
+    const portfolioFull: any = useAppSelector((state) => state.fullPortfolio?.fullPortfolio);
 
     /*****Gets the work experience data and sets it to the state*****/
     useEffect(() => {
-        axios.get<WorkExperience[]>(url + cookie['portfolio'].id).then(response => {
-            setList(response.data);
-        });
+        setList(portfolioFull.fullPortfolio.workExperiences)
     }, [null]);
 
     /*****Iterates through the work experience list to display*****/
